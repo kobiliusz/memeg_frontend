@@ -4,7 +4,7 @@
       <v-app-bar color="primary">
         <v-app-bar-title>
           <span class="title-span">
-            memeg
+            memeg.eu
           </span>
         </v-app-bar-title>
       </v-app-bar>

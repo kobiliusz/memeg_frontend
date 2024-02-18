@@ -13,15 +13,19 @@
       </v-navigation-drawer>
       <div class="d-flex align-center flex-column">
         <v-card class="bg-lime-lighten-4 mx-10 my-8">
-          <p class="text-center top-blob my-3 mx-10">
+          <p class="text-center dm-sans my-3 mx-10">
             This site enables you to create memes based on your images! Simply upload the image, set the top and bottom
             text and download the created file...
           </p>
         </v-card>
-        <v-card variant="outlined" width="400" height="400" class="my-10 bg-lime-lighten-5">
-
-        </v-card>
-        <v-sheet width="450" class="mx-auto bg-indigo-lighten-5">
+        <v-sheet border="sm" width="400" height="400"
+          class="my-10 bg-lime-lighten-5 d-flex align-center justify-center">
+          <div id="placeholder" class="d-flex flex-column align-center">
+            <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
+            <span class="dm-sans">Drop file or click to upload!</span>
+          </div>
+        </v-sheet>
+        <v-sheet width="450" class="mx-auto bg-indigo-lighten-5 dm-sans">
           <v-text-field v-model="topText" label="Top text"></v-text-field>
           <v-text-field v-model="bottomText" label="Bottom text"></v-text-field>
         </v-sheet>
@@ -30,6 +34,16 @@
     </v-main>
   </v-app>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+
+      };
+    }
+  }
+</script>
 
 <script setup>
 //
@@ -46,7 +60,7 @@
   align-items: center;
 }
 
-.top-blob {
+.dm-sans {
   font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;

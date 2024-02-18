@@ -18,9 +18,10 @@
             text and download the created file...
           </p>
         </v-card>
-        <v-sheet border="sm" width="400" height="400"
+        <v-sheet border="sm" width="400" height="400" 
           class="my-10 bg-lime-lighten-5 d-flex align-center justify-center">
-          <div id="placeholder" class="d-flex flex-column align-center">
+          <div id="placeholder" class="d-flex flex-column align-center justify-center" v-if="!imagePresent" 
+          @dragover.prevent="highlight" @dragleave.prevent="unhighlight" @drop.prevent="handleDrop">
             <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
             <span class="dm-sans">Drop file or click to upload!</span>
           </div>
@@ -29,20 +30,50 @@
           <v-text-field v-model="topText" label="Top text"></v-text-field>
           <v-text-field v-model="bottomText" label="Bottom text"></v-text-field>
         </v-sheet>
-        <v-btn color="secondary" class="mt-5">Download</v-btn>
+        <v-btn color="secondary" class="mt-5" v-if="imagePresent">Download</v-btn>
       </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-
+export default {
+  data() {
+    return {
+      imagePresent: false,
+      topText: '',
+      bottomText: ''
+    };
+  },
+  methods: {
+    triggerFileDialog() {
+      this.$refs.fileInput.click();
+    },
+    handleFiles(event) {
+      const files = event.target.files || event.dataTransfer.files;
+      this.readFile(files[0]);
+    },
+    handleDrop(event) {
+      this.handleFiles(event);
+      this.unhighlight(event);
+    },
+    highlight(event) {
+      event.target.style.backgroundColor = '#F4FF81';
+    },
+    unhighlight(event) {
+      event.target.style.backgroundColor = '#F9FBE7';
+    },
+    readFile(file) {
+      console.log(file); 
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        console.log(e.target.result); 
       };
-    }
-  }
+      reader.readAsDataURL(file);
+    },
+  },
+}
 </script>
 
 <script setup>
@@ -66,4 +97,10 @@
   font-weight: 400;
   font-style: normal;
 }
+
+#placeholder {
+  width: 100%;
+  height: 100%;
+}
+
 </style>

@@ -30,7 +30,10 @@
           <v-text-field v-model="topText" label="Top text"></v-text-field>
           <v-text-field v-model="bottomText" label="Bottom text"></v-text-field>
         </v-sheet>
-        <v-btn color="secondary" class="mt-5" v-if="imagePresent">Download</v-btn>
+        <div class="d-flex mt-5 justify-center" v-if="imagePresent">
+        <v-btn color="secondary" class="mr-5">Download</v-btn>
+        <v-btn color="primary">Clear</v-btn>
+      </div>
       </div>
     </v-main>
   </v-app>

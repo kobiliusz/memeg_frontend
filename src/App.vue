@@ -166,6 +166,9 @@ export default {
           body: JSON.stringify(req_data),
         })
           .then(response => {
+            if (response.status == 307) {
+              throw new Error('Redirect!');
+            }
             if (!response.ok) {
               this.$refs.errord.activate();
               this.clear();

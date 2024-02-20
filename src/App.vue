@@ -166,12 +166,12 @@ export default {
           body: JSON.stringify(req_data),
         })
           .then(response => {
-            if (response.status == 307) {
-              throw new Error('Redirect!');
-            }
-            if (!response.ok) {
+            if (response.status == 406) {
               this.$refs.errord.activate();
               this.clear();
+            } if (!response.ok) {
+              // If the response is not 2xx, throw an error
+              throw new Error('Network response was not ok');
             }
             return response.json();
           })

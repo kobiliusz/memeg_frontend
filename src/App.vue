@@ -11,6 +11,7 @@
       <v-navigation-drawer class="bg-indigo-lighten-4">
 
       </v-navigation-drawer>
+      <ErrorDialog ref="errord" />
       <div>
         <v-card class="bg-lime-lighten-4 mx-10 my-8">
           <p class="text-center dm-sans my-3 mx-10">
@@ -82,13 +83,17 @@ export default {
     },
     readFile(file) {
       if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.baseImage = e.target.result;
-        this.$refs.image.src = this.baseImage;
-        this.imagePresent = true;
-      };
-      reader.readAsDataURL(file);
+      try {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.baseImage = e.target.result;
+          this.$refs.image.src = this.baseImage;
+          this.imagePresent = true;
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        this.$refs.errord.activate();
+      }
     },
     clear() {
       this.baseImage = "";
@@ -161,11 +166,9 @@ export default {
           body: JSON.stringify(req_data),
         })
           .then(response => {
-            if (response.status == 406) {
-              // TODO ERROR?
-              return null;
-            } if (!response.ok) {
-              throw new Error('Network response was not ok');
+            if (!response.ok) {
+              this.$refs.errord.activate();
+              this.clear();
             }
             return response.json();
           })

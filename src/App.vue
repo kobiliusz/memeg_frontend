@@ -124,7 +124,7 @@ export default {
       return b64.split(',')[1];
     },
     packageBytes(b64) {
-      return 'data:image/png;base64,' + b64;
+      return 'data:image/jpg;base64,' + b64;
     },
     delayedFetch() {
       if (!this.imagePresent) return;

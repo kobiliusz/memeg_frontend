@@ -35,7 +35,7 @@
           <v-text-field v-model="bottomText" label="Bottom text"></v-text-field>
         </v-sheet>
         <div class="d-flex mt-5 justify-center" v-if="imagePresent">
-        <v-btn color="secondary" class="mr-5">Download</v-btn>
+        <v-btn color="secondary" class="mr-5" @click="downloadImage">Download</v-btn>
         <v-btn color="primary" @click="clear">Clear</v-btn>
       </div>
     </div>
@@ -88,7 +88,37 @@ export default {
       this.baseImage = "";
       this.$refs.image.src = "";
       this.imagePresent = false; 
-    }
+      this.topText = '';
+      this.bottomText = '';
+    },
+    downloadImage() {
+      const linkSource = this.$refs.image.src;
+      const downloadLink = document.createElement('a');
+      downloadLink.href = linkSource;
+      downloadLink.download = this.topText + '_' + this.bottomText + '_meme' + this.getImageExtension(linkSource);
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    },
+    getImageExtension(base64String) {
+      const match = base64String.match(/data:image\/([a-zA-Z]*);base64,/);
+
+      if (match && match[1]) {
+        const imageType = match[1];
+        switch (imageType) {
+          case 'jpeg':
+          case 'jpg':
+            return '.jpg';
+          case 'png':
+            return '.png';
+          case 'gif':
+            return '.gif';
+          default:
+            return '';
+        }
+      }
+      return '';
+    },
   },
 }
 </script>

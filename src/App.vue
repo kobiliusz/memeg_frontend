@@ -11,7 +11,6 @@
       <v-navigation-drawer class="bg-indigo-lighten-4" permanent>
 
       </v-navigation-drawer>
-
         <div>
         <v-card class="bg-lime-lighten-4 mx-10 my-8">
           <p class="text-center dm-sans my-3 mx-10">
@@ -22,11 +21,13 @@
         <div class="d-flex flex-wrap justify-center">
         <v-sheet border="sm" width="400" height="400" 
           class="mb-10 mt- bg-lime-lighten-5 d-flex align-center justify-center">
+          <input type="file" ref="fileInput" @change="handleFiles" v-show="false" accept="image/*" />
           <div id="placeholder" class="d-flex flex-column align-center justify-center" v-if="!imagePresent" 
-          @dragover.prevent="highlight" @dragleave.prevent="unhighlight" @drop.prevent="handleDrop">
+          @dragover.prevent="highlight" @dragleave.prevent="unhighlight" @drop.prevent="handleDrop" @click="triggerFileDialog">
             <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
             <span class="dm-sans">Drop file or click to upload!</span>
           </div>
+          <img v-show="imagePresent" ref="image" id="image"/>
         </v-sheet>
         <div class="d-flex flex-column mx-5">
         <v-sheet width="450" class="bg-indigo-lighten-5 dm-sans">
@@ -35,7 +36,7 @@
         </v-sheet>
         <div class="d-flex mt-5 justify-center" v-if="imagePresent">
         <v-btn color="secondary" class="mr-5">Download</v-btn>
-        <v-btn color="primary">Clear</v-btn>
+        <v-btn color="primary" @click="clear">Clear</v-btn>
       </div>
     </div>
     </div>
@@ -49,6 +50,7 @@
 export default {
   data() {
     return {
+      baseImage: "",
       imagePresent: false,
       topText: '',
       bottomText: ''
@@ -73,14 +75,20 @@ export default {
       event.target.style.backgroundColor = '#F9FBE7';
     },
     readFile(file) {
-      console.log(file); 
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (e) => {
-        console.log(e.target.result); 
+        this.baseImage = e.target.result;
+        this.$refs.image.src = this.baseImage; 
+        this.imagePresent = true; 
       };
       reader.readAsDataURL(file);
     },
+    clear() {
+      this.baseImage = "";
+      this.$refs.image.src = "";
+      this.imagePresent = false; 
+    }
   },
 }
 </script>
@@ -111,6 +119,12 @@ export default {
 #placeholder {
   width: 100%;
   height: 100%;
+}
+
+#image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 </style>

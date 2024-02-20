@@ -27,7 +27,13 @@
             <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
             <span class="dm-sans">Drop file or click to upload!</span>
           </div>
-          <img v-show="imagePresent" ref="image" id="image"/>
+          <img v-show="imagePresent && !loading" ref="image" id="image"/>
+          <div class="d-flex align-center justify-center" v-if="loading">
+            <v-progress-circular
+            indeterminate
+            color="primary"
+            ></v-progress-circular>
+          </div>
         </v-sheet>
         <div class="d-flex flex-column mx-5">
         <v-sheet width="450" class="bg-indigo-lighten-5 dm-sans">
@@ -54,7 +60,8 @@ export default {
       imagePresent: false,
       topText: '',
       bottomText: '',
-      timeoutId: null
+      timeoutId: null,
+      loading: false
     };
   },
   methods: {
@@ -132,6 +139,7 @@ export default {
       this.timeoutId = setTimeout(() => {
 
         console.log(this.stripBytes(this.baseImage));
+        this.loading = true;
 
       }, 1000);
     }

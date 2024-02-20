@@ -8,7 +8,7 @@
           </span>
         </v-app-bar-title>
       </v-app-bar>
-      <v-navigation-drawer class="bg-indigo-lighten-4" permanent>
+      <v-navigation-drawer class="bg-indigo-lighten-4">
 
       </v-navigation-drawer>
         <div>

@@ -11,22 +11,25 @@
       <v-navigation-drawer class="bg-indigo-lighten-4" permanent>
 
       </v-navigation-drawer>
-      <div class="d-flex align-center flex-column">
+
+        <div>
         <v-card class="bg-lime-lighten-4 mx-10 my-8">
           <p class="text-center dm-sans my-3 mx-10">
             This site enables you to create memes based on your images! Simply upload the image, set the top and bottom
             text and download the created file...
           </p>
         </v-card>
+        <div class="d-flex flex-wrap justify-center">
         <v-sheet border="sm" width="400" height="400" 
-          class="my-10 bg-lime-lighten-5 d-flex align-center justify-center">
+          class="mb-10 mt- bg-lime-lighten-5 d-flex align-center justify-center">
           <div id="placeholder" class="d-flex flex-column align-center justify-center" v-if="!imagePresent" 
           @dragover.prevent="highlight" @dragleave.prevent="unhighlight" @drop.prevent="handleDrop">
             <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
             <span class="dm-sans">Drop file or click to upload!</span>
           </div>
         </v-sheet>
-        <v-sheet width="450" class="mx-auto bg-indigo-lighten-5 dm-sans">
+        <div class="d-flex flex-column mx-5">
+        <v-sheet width="450" class="bg-indigo-lighten-5 dm-sans">
           <v-text-field v-model="topText" label="Top text"></v-text-field>
           <v-text-field v-model="bottomText" label="Bottom text"></v-text-field>
         </v-sheet>
@@ -34,7 +37,10 @@
         <v-btn color="secondary" class="mr-5">Download</v-btn>
         <v-btn color="primary">Clear</v-btn>
       </div>
-      </div>
+    </div>
+    </div>
+  </div>
+
     </v-main>
   </v-app>
 </template>
@@ -84,6 +90,7 @@ export default {
 </script>
 
 <style>
+
 .title-span {
   font-family: "Protest Riot", sans-serif;
   font-weight: 400;

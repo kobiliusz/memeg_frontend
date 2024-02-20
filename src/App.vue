@@ -31,8 +31,8 @@
         </v-sheet>
         <div class="d-flex flex-column mx-5">
         <v-sheet width="450" class="bg-indigo-lighten-5 dm-sans">
-          <v-text-field v-model="topText" label="Top text"></v-text-field>
-          <v-text-field v-model="bottomText" label="Bottom text"></v-text-field>
+          <v-text-field v-model="topText" label="Top text" @keyup="delayedFetch"></v-text-field>
+          <v-text-field v-model="bottomText" label="Bottom text" @keyup="delayedFetch"></v-text-field>
         </v-sheet>
         <div class="d-flex mt-5 justify-center" v-if="imagePresent">
         <v-btn color="secondary" class="mr-5" @click="downloadImage">Download</v-btn>
@@ -53,7 +53,8 @@ export default {
       baseImage: "",
       imagePresent: false,
       topText: '',
-      bottomText: ''
+      bottomText: '',
+      timeoutId: null
     };
   },
   methods: {
@@ -119,6 +120,21 @@ export default {
       }
       return '';
     },
+    stripBytes(b64) {
+      return b64.split(',')[1];
+    },
+    packageBytes(b64) {
+      return 'data:image/png;base64,' + b64;
+    },
+    delayedFetch() {
+      if (!this.imagePresent) return;
+      clearTimeout(this.timeoutId);
+      this.timeoutId = setTimeout(() => {
+
+        console.log(this.stripBytes(this.baseImage));
+
+      }, 1000);
+    }
   },
 }
 </script>

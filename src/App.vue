@@ -11,7 +11,7 @@
       <v-navigation-drawer class="bg-indigo-lighten-4">
 
       </v-navigation-drawer>
-        <div>
+      <div>
         <v-card class="bg-lime-lighten-4 mx-10 my-8">
           <p class="text-center dm-sans my-3 mx-10">
             This site enables you to create memes based on your images! Simply upload the image, set the top and bottom
@@ -19,34 +19,32 @@
           </p>
         </v-card>
         <div class="d-flex flex-wrap justify-center">
-        <v-sheet border="sm" width="400" height="400" 
-          class="mb-10 mt- bg-lime-lighten-5 d-flex align-center justify-center">
-          <input type="file" ref="fileInput" @change="handleFiles" v-show="false" accept="image/*" />
-          <div id="placeholder" class="d-flex flex-column align-center justify-center" v-if="!imagePresent" 
-          @dragover.prevent="highlight" @dragleave.prevent="unhighlight" @drop.prevent="handleDrop" @click="triggerFileDialog">
-            <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
-            <span class="dm-sans">Drop file or click to upload!</span>
+          <v-sheet border="sm" width="400" height="400"
+            class="mb-10 mt- bg-lime-lighten-5 d-flex align-center justify-center">
+            <input type="file" ref="fileInput" @change="handleFiles" v-show="false" accept="image/*" />
+            <div id="placeholder" class="d-flex flex-column align-center justify-center" v-if="!imagePresent"
+              @dragover.prevent="highlight" @dragleave.prevent="unhighlight" @drop.prevent="handleDrop"
+              @click="triggerFileDialog" transition="fade-transition">
+              <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
+              <span class="dm-sans">Drop file or click to upload!</span>
+            </div>
+            <img v-show="imagePresent && !loading" ref="image" id="image" transition="fade-transition" />
+            <div class="d-flex align-center justify-center" v-if="loading">
+              <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            </div>
+          </v-sheet>
+          <div class="d-flex flex-column mx-5">
+            <v-sheet width="450" class="bg-indigo-lighten-5 dm-sans">
+              <v-text-field v-model="topText" label="Top text" @keyup="delayedFetch"></v-text-field>
+              <v-text-field v-model="bottomText" label="Bottom text" @keyup="delayedFetch"></v-text-field>
+            </v-sheet>
+            <div class="d-flex mt-5 justify-center" v-if="imagePresent">
+              <v-btn color="secondary" class="mr-5" @click="downloadImage">Download</v-btn>
+              <v-btn color="primary" @click="clear">Clear</v-btn>
+            </div>
           </div>
-          <img v-show="imagePresent && !loading" ref="image" id="image"/>
-          <div class="d-flex align-center justify-center" v-if="loading">
-            <v-progress-circular
-            indeterminate
-            color="primary"
-            ></v-progress-circular>
-          </div>
-        </v-sheet>
-        <div class="d-flex flex-column mx-5">
-        <v-sheet width="450" class="bg-indigo-lighten-5 dm-sans">
-          <v-text-field v-model="topText" label="Top text" @keyup="delayedFetch"></v-text-field>
-          <v-text-field v-model="bottomText" label="Bottom text" @keyup="delayedFetch"></v-text-field>
-        </v-sheet>
-        <div class="d-flex mt-5 justify-center" v-if="imagePresent">
-        <v-btn color="secondary" class="mr-5" @click="downloadImage">Download</v-btn>
-        <v-btn color="primary" @click="clear">Clear</v-btn>
+        </div>
       </div>
-    </div>
-    </div>
-  </div>
 
     </v-main>
   </v-app>
@@ -87,8 +85,8 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.baseImage = e.target.result;
-        this.$refs.image.src = this.baseImage; 
-        this.imagePresent = true; 
+        this.$refs.image.src = this.baseImage;
+        this.imagePresent = true;
       };
       reader.readAsDataURL(file);
     },
@@ -96,7 +94,7 @@ export default {
       this.baseImage = "";
       this.$refs.image.src = "";
       this.imagePresent = false;
-      this.loading = false; 
+      this.loading = false;
       this.topText = '';
       this.bottomText = '';
     },
@@ -139,9 +137,50 @@ export default {
       clearTimeout(this.timeoutId);
       this.timeoutId = setTimeout(() => {
 
-        console.log(this.stripBytes(this.baseImage));
         this.loading = true;
+        var env = process.env.NODE_ENV || 'development';
 
+        var url;
+
+        if (env == 'development') {
+          url = "http://127.0.0.1:8000/make_meme/"
+        } else {
+          url = "/make_meme/"
+        }
+
+        var req_data = {}
+        req_data['image_b64'] = this.stripBytes(this.baseImage);
+        req_data['top_text'] = this.topText;
+        req_data['bottom_text'] = this.bottomText;
+
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(req_data),
+        })
+          .then(response => {
+            if (response.status == 406) {
+              // TODO ERROR?
+              return null;
+            } if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data == null) {
+              return;
+            }
+            this.$refs.image.src = this.packageBytes(data['image_b64']);
+          })
+          .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+          })
+          .finally(a => {
+            this.loading = false;
+          });
       }, 1000);
     }
   },
@@ -153,7 +192,6 @@ export default {
 </script>
 
 <style>
-
 .title-span {
   font-family: "Protest Riot", sans-serif;
   font-weight: 400;
@@ -181,5 +219,4 @@ export default {
   height: 100%;
   object-fit: contain;
 }
-
 </style>

@@ -95,7 +95,8 @@ export default {
     clear() {
       this.baseImage = "";
       this.$refs.image.src = "";
-      this.imagePresent = false; 
+      this.imagePresent = false;
+      this.loading = false; 
       this.topText = '';
       this.bottomText = '';
     },

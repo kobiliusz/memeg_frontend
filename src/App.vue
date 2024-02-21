@@ -9,7 +9,7 @@
         </v-app-bar-title>
       </v-app-bar>
       <v-navigation-drawer class="bg-indigo-lighten-4">
-
+        <div class="dm-sans" id="container-6aca936edffca707222083899fbab106"></div>
       </v-navigation-drawer>
         <div>
         <v-card class="bg-lime-lighten-4 mx-10 my-8">

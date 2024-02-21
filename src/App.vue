@@ -35,9 +35,9 @@
             </div>
           </v-sheet>
           <div class="d-flex flex-column mx-5">
-            <v-sheet width="450" class="bg-indigo-lighten-5 dm-sans">
-              <v-text-field v-model="topText" label="Top text" @keyup="delayedFetch"></v-text-field>
-              <v-text-field v-model="bottomText" label="Bottom text" @keyup="delayedFetch"></v-text-field>
+            <v-sheet width="400" class="bg-indigo-lighten-5 dm-sans">
+              <v-text-field v-model="topText" label="Top text" @keyup="delayedFetch" :disabled="!imagePresent"></v-text-field>
+              <v-text-field v-model="bottomText" label="Bottom text" @keyup="delayedFetch" :disabled="!imagePresent"></v-text-field>
             </v-sheet>
             <div class="d-flex mt-5 justify-center" v-if="imagePresent">
               <v-btn color="secondary" class="mr-5" @click="downloadImage">Download</v-btn>

@@ -1,14 +1,14 @@
 <template>
     <v-dialog width="500" v-model="isActive" persistent>
-        <v-card title="Error">
+        <v-card :title="$t('message.error')">
             <v-card-text>
-                There is something wrong with the image.
+                {{ $t("message.message") }}
             </v-card-text>
 
             <v-card-actions>
                 <v-spacer></v-spacer>
 
-                <v-btn text="Close" @click="isActive = false" color="error"></v-btn>
+                <v-btn text="$t('message.close')" @click="isActive = false" color="error"></v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

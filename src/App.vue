@@ -15,8 +15,7 @@
       <div>
         <v-card class="bg-lime-lighten-4 mx-10 my-8">
           <p class="text-center dm-sans my-3 mx-10">
-            This site enables you to create memes based on your images! Simply upload the image, set the top and bottom
-            text and download the created file...
+            {{ $t("message.instructions") }}
           </p>
         </v-card>
         <div class="d-flex flex-wrap justify-center">
@@ -27,7 +26,7 @@
               @dragover.prevent="highlight" @dragleave.prevent="unhighlight" @drop.prevent="handleDrop"
               @click="triggerFileDialog" transition="fade-transition">
               <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
-              <span class="dm-sans">Drop file or click to upload!</span>
+              <span class="dm-sans">{{ $t("message.input") }}</span>
             </div>
             <img v-show="imagePresent && !loading" ref="image" id="image" transition="fade-transition" />
             <div class="d-flex align-center justify-center" v-if="loading">
@@ -36,12 +35,12 @@
           </v-sheet>
           <div class="d-flex flex-column mx-5">
             <v-sheet width="400" class="bg-indigo-lighten-5 dm-sans">
-              <v-text-field v-model="topText" label="Top text" @keyup="delayedFetch" :disabled="!imagePresent"></v-text-field>
-              <v-text-field v-model="bottomText" label="Bottom text" @keyup="delayedFetch" :disabled="!imagePresent"></v-text-field>
+              <v-text-field v-model="topText" :label="$t('message.top')" @keyup="delayedFetch" :disabled="!imagePresent"></v-text-field>
+              <v-text-field v-model="bottomText" :label="$t('message.bottom')" @keyup="delayedFetch" :disabled="!imagePresent"></v-text-field>
             </v-sheet>
             <div class="d-flex mt-5 justify-center" v-if="imagePresent">
-              <v-btn color="secondary" class="mr-5" @click="downloadImage">Download</v-btn>
-              <v-btn color="primary" @click="clear">Clear</v-btn>
+              <v-btn color="secondary" class="mr-5" @click="downloadImage">{{ $t("message.download") }}</v-btn>
+              <v-btn color="primary" @click="clear">{{ $t("message.clear") }}</v-btn>
             </div>
           </div>
         </div>

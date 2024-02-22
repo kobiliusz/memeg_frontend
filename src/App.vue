@@ -13,7 +13,7 @@
       </v-navigation-drawer>
       <ErrorDialog ref="errord" />
       <div>
-        <v-card class="bg-lime-lighten-4 mx-10 my-8">
+        <v-card class="bg-lime-lighten-4 mx-10 mb-8 mt-2">
           <p class="text-center dm-sans my-3 mx-10">
             {{ $t("message.instructions") }}
           </p>

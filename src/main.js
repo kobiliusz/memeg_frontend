@@ -40,8 +40,61 @@ const messages = {
             message: 'Oj coś jest nie tak z plikiem...',
             close: 'Zamknij'
         }
-    }
+    },
 
+    es: {
+        message: {
+            instructions: '¡Este sitio te permite crear memes basados en tus imágenes! Simplemente cargue la imagen, configure el texto superior e inferior y descargue el archivo creado...',
+            top: 'Texto superior',
+            bottom: 'Texto inferior',
+            download: 'Descargar',
+            clear: 'limpiar',
+            input: '¡Suelte el archivo o haga clic para cargar la imagen!',
+            error: 'Error',
+            message: 'Hay algo mal con la imagen.',
+            close: 'Cerrar'
+        }
+    },
+    pt: {
+        message: {
+            instructions: 'Este site permite que você crie memes com base em suas imagens! Basta fazer upload da imagem, definir o texto superior e inferior e baixar o arquivo criado...',
+            top: 'Texto superior',
+            bottom: 'Texto inferior',
+            download: 'Baixe',
+            clear: 'limpar',
+            input: 'Solte o arquivo ou clique para enviar a imagem!',
+            error: 'Erro',
+            message: 'Há algo errado com a imagem.',
+            close: 'Fechar'
+        }
+    },
+
+    uk: {
+        message: {
+            instructions: 'Цей сайт дозволяє створювати меми на основі ваших зображень! Просто завантажте зображення, встановіть верхній і нижній текст і завантажте створений файл...',
+            top: 'Верхній текст',
+            bottom: 'Нижній текст',
+            download: 'Завантажити',
+            clear: 'очистити',
+            input: 'Перетягніть файл або натисніть, щоб завантажити зображення!',
+            error: 'Помилка',
+            message: 'Щось не так із зображенням.',
+            close: 'закрити'
+        }
+    },
+    ru: {
+        message: {
+            instructions: 'Этот сайт позволяет вам создавать мемы на основе ваших изображений! Просто загрузите изображение, установите верхний и нижний текст и загрузите созданный файл...',
+            top: 'Верхний текст',
+            bottom: 'Нижний текст',
+            download: 'Скачать',
+            clear: 'очистить',
+            input: 'Перетащите файл или нажмите, чтобы загрузить изображение!',
+            error: 'Ошибка',
+            message: 'Что-то не так с изображением.',
+            close: 'Закрывать'
+        }
+    },
 };
 
 const browserLanguage = navigator.language.split('-')[0];

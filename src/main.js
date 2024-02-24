@@ -95,6 +95,60 @@ const messages = {
             close: 'Закрывать'
         }
     },
+
+    fr: {
+        message: {
+            instructions: 'Ce site vous permet de créer des mèmes basés sur vos images ! Téléchargez simplement l\'image, définissez le texte du haut et du bas et téléchargez le fichier créé...',
+            top: 'Texte supérieur',
+            bottom: 'Texte inférieur',
+            download: 'Télécharger',
+            clear: 'effacer',
+            input: 'Déposez le fichier ou cliquez pour télécharger l\'image !',
+            error: 'Erreur',
+            message: 'Il y a quelque chose qui ne va pas avec l\'image.',
+            close: 'Fermer'
+        }
+    },
+    nl: {
+        message: {
+            instructions: 'Met deze site kunt u memes maken op basis van uw afbeeldingen! Upload eenvoudig de afbeelding, stel de bovenste en onderste tekst in en download het gemaakte bestand...',
+            top: 'Bovenste tekst',
+            bottom: 'Onderste tekst',
+            download: 'Downloaden',
+            clear: 'wissen',
+            input: 'Zet het bestand neer of klik om de afbeelding te uploaden!',
+            error: 'Fout',
+            message: 'Er is iets mis met het beeld.',
+            close: 'sluiten'
+        }
+    },
+
+    it: {
+        message: {
+            instructions: 'Questo sito ti consente di creare meme basati sulle tue immagini! Basta caricare l\'immagine, impostare il testo in alto e in basso e scaricare il file creato...',
+            top: 'Testo superiore',
+            bottom: 'Testo inferiore',
+            download: 'Scaricare',
+            clear: 'cancellare',
+            input: 'Rilascia il file o fai clic per caricare l\'immagine!',
+            error: 'Errore',
+            message: 'C\'è qualcosa che non va nell\'immagine.',
+            close: 'chiudere'
+        }
+    },
+    de: {
+        message: {
+            instructions: 'Auf dieser Website können Sie Memes basierend auf Ihren Bildern erstellen! Laden Sie einfach das Bild hoch, legen Sie den oberen und unteren Text fest und laden Sie die erstellte Datei herunter ...',
+            top: 'Oberer Text',
+            bottom: 'Unterer Text',
+            download: 'Herunterladen',
+            clear: 'löschen',
+            input: 'Legen Sie die Datei ab oder klicken Sie, um das Bild hochzuladen!',
+            error: 'Fehler',
+            message: 'Mit dem Bild stimmt etwas nicht.',
+            close: 'schließen'
+        }
+    },
 };
 
 const browserLanguage = navigator.language.split('-')[0];

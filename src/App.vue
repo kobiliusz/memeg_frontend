@@ -23,7 +23,7 @@
               @dragover.prevent="highlight" @dragleave.prevent="unhighlight" @drop.prevent="handleDrop"
               @click="triggerFileDialog" transition="fade-transition">
               <v-icon icon="mdi-gesture-tap-button" size="x-large"></v-icon>
-              <span class="dm-sans text-center">{{ $t("message.input") }}</span>
+              <span class="dm-sans text-center mx-5">{{ $t("message.input") }}</span>
             </div>
             <img v-show="imagePresent && !loading" ref="image" id="image" transition="fade-transition" />
             <div class="d-flex align-center justify-center" v-if="loading">
